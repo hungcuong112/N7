@@ -1,0 +1,38 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  fullName: {
+  type: DataTypes.STRING,
+  allowNull: false, // hoặc true nếu không bắt buộc
+},
+  email: {
+    type: DataTypes.STRING(150),
+    allowNull: false,
+    unique: true
+  },
+  password: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
+  role: {
+    type: DataTypes.STRING(20),
+    allowNull: false
+    // 'patient', 'doctor', 'admin'
+  },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  },
+  // Thêm các trường quản trị hệ thống nếu cần (ví dụ twoFASecret, avatar, ...)
+}, {
+  timestamps: true
+});
+
+module.exports = User;
